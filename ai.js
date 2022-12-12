@@ -13,13 +13,16 @@ class Ai {
         
      }
 
+
+
+
      getAvailableMoves(getNodeData){
         let avaliableMoves = new array;
        
         let boardData = new array = this.getNodeData(); //gets the board data from the board
         if (boardData[0][0]) { //checks if the player is in an immediate-close-win-state
-            avaliableMoves.add(boardData[0][0]);
-        return(avaliableMoves);
+            avaliableMoves.add(boardData[0][0]); 
+        return(avaliableMoves); //returns only that move if AI is about to lose
         } else{
 
         }
@@ -39,7 +42,11 @@ class Ai {
 
 
      evaluateBranch(node, searchhDepth){
-        
+        this.getAvailableMoves(node);
+        if(AIturn){  //placeholder
+            
+
+         }
     }
 
 }
