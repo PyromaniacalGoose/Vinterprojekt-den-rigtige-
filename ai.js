@@ -5,17 +5,30 @@ class Ai {
 
     }
 
-     evaluateBoard(){
-        let boardData = new array = this.getBoardData(); //gets the board data from the board
-        if (boardData[0][0]) { //checks if the player is in an immediate-close-win-state
-
-        } else{
+     getBestMove(){
+        let avaliableMoves = getAvailableMoves();
+        if(avaliableMoves == 1) { //if there's only 1 move 
 
         }
         
      }
 
-      getBoardData(){
+     getAvailableMoves(getNodeData){
+        let avaliableMoves = new array;
+       
+        let boardData = new array = this.getNodeData(); //gets the board data from the board
+        if (boardData[0][0]) { //checks if the player is in an immediate-close-win-state
+            avaliableMoves.add(boardData[0][0]);
+        return(avaliableMoves);
+        } else{
+
+        }
+
+
+     }
+
+
+      getNodeData(node){
 
         let Check = new array; //array to return bool for immediate-close-win-state along with row
         
