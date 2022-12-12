@@ -67,13 +67,39 @@ class board {
 
         this.rowNumber;
 
-        this.addPiece = function(rowNumber){ //adds a 'piece' to a coloumn at its bottom
+        this.addPlayerPiece = function(rowNumber){ //adds a 'piece' to a coloumn at its bottom
 
             for (var i = this.coloums; i >= 0; i--){
 
-                if (boardArray[rowNumber][i] == false){
+                if (boardArray[rowNumber][i].this.tile.playerPiece == false){
 
-                    boardArray[rowNumber][i] == true
+                    boardArray[rowNumber][i].this.tile.playerPiece == true
+
+                }
+
+                if(this.pieceCounter < 4){ //Only checks win state if 4 pieces has been added to the board.
+
+                    this.pieceCounter ++
+
+                }
+
+                else {
+
+                    this.checkWinstate();
+
+                }
+
+            }
+
+        }
+
+        this.addAIPiece = function(rowNumber){ //adds a 'piece' to a coloumn at its bottom
+
+            for (var i = this.coloums; i >= 0; i--){
+
+                if (boardArray[rowNumber][i].this.tile.AIPiece == false){
+
+                    boardArray[rowNumber][i].this.tile.AIPiece == true
 
                 }
 
