@@ -1,21 +1,19 @@
 class board {
     constructor(coloums, rows){
 
-        this.coloums = coloums;
+        this.boardArray = new Array(rows);
 
-        this.rows = rows;
-
-        this.boardArray = [];
+        this.tile = {playerPiece: false, AIPiece: false};
 
         this.boardSetup = function(){ //decleration of boardArray as 2D array
 
-            for (var i = 0; i <= this.rows; i++){ 
+            for (var i = 0; i <= rows; i++){ 
 
-                boardArray[i] = [].length = this.coloums;
+                boardArray[i] = new Array(coloums);
     
-                for (var j = 0; j <= this.coloums; j ++){
+                for (var j = 0; j <= coloums; j ++){
     
-                    boardArray[i][j] = false;
+                    boardArray[i][j] = this.tile;
     
                 }
     
@@ -29,7 +27,7 @@ class board {
 
                 for(var j = 0; j < coloums - 3; j++){
 
-                    if(boardArray[i][j] && boardArray[i][j + 1] && boardArray[i][j + 2] && boardArray[i][j + 3]){ //vertically 4 in a row
+                    if(boardArray[i][j].this.tile.playerPiece == true && boardArray[i][j + 1] && boardArray[i][j + 2] && boardArray[i][j + 3]){ //vertically 4 in a row
 
                         win
 
@@ -92,6 +90,10 @@ class board {
                 }
 
             }
+
+        }
+
+        this.drawBoard = function(){
 
         }
 
