@@ -97,7 +97,6 @@ class board {
 
                         console.log(AIWin)
 
-
                     }
 
                     else if(boardArray[i][j].this.tile.AIPiece == true && 
@@ -211,6 +210,38 @@ class board {
         }
 
         this.drawBoard = function(){
+
+            let temp =   "";
+
+            for(var i = 0; i < rows; i++){
+
+                temp =   "";
+
+                for(var j = 0; j < coloums; j++){
+
+                    if(boardArray[i][j].this.tile.playerPiece == true){
+
+                        temp += " P ";
+
+                    }
+
+                    if(boardArray[i][j].this.tile.AIPiece == true){
+
+                        temp += " A ";
+
+                    }
+
+                    else {
+
+                        temp += " X ";
+    
+                    }
+
+                }
+
+                console.log(temp);
+
+            }
 
         }
 
