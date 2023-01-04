@@ -26,7 +26,7 @@ class board {
         var AIWin = "HAHAHAHAHAHAHAHAHAHAHAHAHA YOU LOST!";
 
 
-        this.checkPlayerWinstate = function(){ //checks if there's a valid win state
+        this.checkPlayerWinstate = function(){ //checks if there's a valid win state for the player
 
             for(var i = 0; i < rows - 3; i++){
 
@@ -84,7 +84,7 @@ class board {
 
         }
 
-        this.checkAIWinstate = function(){ //checks if there's a valid win state
+        this.checkAIWinstate = function(){ //checks if there's a valid win state for the AI
 
             for(var i = 0; i < rows - 3; i++){
 
@@ -139,8 +139,7 @@ class board {
             }
 
         }
-
-
+        
         this.pieceCounter = 0;
 
         this.rowNumber;
