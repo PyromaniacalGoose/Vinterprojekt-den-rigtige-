@@ -26,7 +26,7 @@ class board {
         var AIWin = "HAHAHAHAHAHAHAHAHAHAHAHAHA YOU LOST!";
 
 
-        this.checkPlayerWinstate = function(){ //checks if there's a valid win state
+        this.checkPlayerWinstate = function(){ //checks if there's a valid win state for the player
 
             for(var i = 0; i < rows - 3; i++){
 
@@ -84,7 +84,7 @@ class board {
 
         }
 
-        this.checkAIWinstate = function(){ //checks if there's a valid win state
+        this.checkAIWinstate = function(){ //checks if there's a valid win state for the AI
 
             for(var i = 0; i < rows - 3; i++){
 
@@ -96,7 +96,6 @@ class board {
                         boardArray[i][j + 3].this.tile.AIPiece == true){ //vertically 4 in a row
 
                         console.log(AIWin)
-
 
                     }
 
@@ -211,6 +210,38 @@ class board {
         }
 
         this.drawBoard = function(){
+
+            let temp =   "";
+
+            for(var i = 0; i < rows; i++){
+
+                temp =   "";
+
+                for(var j = 0; j < coloums; j++){
+
+                    if(boardArray[i][j].this.tile.playerPiece == true){
+
+                        temp += " P ";
+
+                    }
+
+                    if(boardArray[i][j].this.tile.AIPiece == true){
+
+                        temp += " A ";
+
+                    }
+
+                    else {
+
+                        temp += " X ";
+    
+                    }
+
+                }
+
+                console.log(temp);
+
+            }
 
         }
 
