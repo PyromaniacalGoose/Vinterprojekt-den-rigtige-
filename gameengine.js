@@ -1,20 +1,28 @@
 class board {
     constructor(coloums, rows){
 
-        this.boardArray = new Array(rows);
+        this.rows = rows;
 
-        this.tile = {playerPiece: false, AIPiece: false};
+        this.coloums = coloums;
 
-        this.boardSetup = function(){ //decleration of boardArray as 2D array
+        this.boardSetup = function(){
 
-            for (var i = 0; i <= rows; i++){ 
+            this.boardArray = new Array(rows);
 
-                boardArray[i] = new Array(coloums);
+            this.tile = {playerPiece: false, AIPiece: false};
     
-                for (var j = 0; j <= coloums; j ++){
+            this.boardSetup = function(){ //decleration of boardArray as 2D array
     
-                    boardArray[i][j] = this.tile;
+                for (var i = 0; i <= rows; i++){ 
     
+                    boardArray[i] = new Array(coloums);
+        
+                    for (var j = 0; j <= coloums; j ++){
+        
+                        boardArray[i][j] = this.tile;
+        
+                    }
+        
                 }
     
             }
