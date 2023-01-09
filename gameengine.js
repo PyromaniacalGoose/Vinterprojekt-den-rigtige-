@@ -1,183 +1,90 @@
 class board {
+
     constructor(coloums, rows){
 
         this.rows = rows;
 
         this.coloums = coloums;
 
-        this.boardSetup = function(){
+        this.boardArray = [];
 
-            this.boardArray = new Array(rows);
+        this.tile = {playerPiece: false, AIPiece: false};
 
-            this.tile = {playerPiece: false, AIPiece: false};
-    
-            this.boardSetup = function(){ //decleration of boardArray as 2D array
-    
-                for (var i = 0; i <= rows; i++){ 
-    
-                    boardArray[i] = new Array(coloums);
-        
-                    for (var j = 0; j <= coloums; j ++){
-        
-                        boardArray[i][j] = this.tile;
-        
-                    }
-        
-                }
-    
-            }
+        this.playerWin = "You won..... finally";
 
-        }
-
-        var playerWin = "You won.... finally";
-
-        var AIWin = "HAHAHAHAHAHAHAHAHAHAHAHAHA YOU LOST!";
-
-
-        this.checkPlayerWinstate = function(){ //checks if there's a valid win state for the player
-
-            for(var i = 0; i < rows - 3; i++){
-
-                for(var j = 0; j < coloums - 3; j++){
-
-                    if(boardArray[i][j].this.tile.playerPiece == true && 
-                        boardArray[i][j + 1].this.tile.playerPiece == true && 
-                        boardArray[i][j + 2].this.tile.playerPiece == true && 
-                        boardArray[i][j + 3].this.tile.playerPiece == true){ //vertically 4 in a row
-
-                        console.log(playerWin)
-
-
-                    }
-
-                    else if(boardArray[i][j].this.tile.playerPiece == true && 
-                        boardArray[i + 1][j].this.tile.playerPiece == true && 
-                        boardArray[i + 2][j].this.tile.playerPiece == true && 
-                        boardArray[i + 3][j].this.tile.playerPiece == true){ //horizontally 4 in a row
-
-                        console.log(playerWin)
-
-
-                    }
-
-                    else if(boardArray[i][j].this.tile.playerPiece == true && 
-                        boardArray[i + 1][j + 1].this.tile.playerPiece == true && 
-                        boardArray[i + 2][j + 2].this.tile.playerPiece == true && 
-                        boardArray[i + 3][j + 3].this.tile.playerPiece == true){ //slanted up 4 in a row
-
-                        console.log(playerWin)
-
-
-                    }
-
-                    else if(j >= 4 && 
-                        boardArray[i][j].this.tile.playerPiece == true && 
-                        boardArray[i + 1][j - 1].this.tile.playerPiece == true && 
-                        boardArray[i + 2][j - 2].this.tile.playerPiece == true && 
-                        boardArray[i + 3][j - 3].this.tile.playerPiece == true){ //slanted down 4 in a row
-
-                        console.log(playerWin)
-
-                    }
-
-                    else {
-
-                        return;
-
-                    }
-
-                }
-
-            }
-
-        }
-
-        this.checkAIWinstate = function(){ //checks if there's a valid win state for the AI
-
-            for(var i = 0; i < rows - 3; i++){
-
-                for(var j = 0; j < coloums - 3; j++){
-
-                    if(boardArray[i][j].this.tile.AIPiece == true && 
-                        boardArray[i][j + 1].this.tile.AIPiece == true && 
-                        boardArray[i][j + 2].this.tile.AIPiece == true && 
-                        boardArray[i][j + 3].this.tile.AIPiece == true){ //vertically 4 in a row
-
-                        console.log(AIWin)
-
-                    }
-
-                    else if(boardArray[i][j].this.tile.AIPiece == true && 
-                        boardArray[i + 1][j].this.tile.AIPiece == true && 
-                        boardArray[i + 2][j].this.tile.AIPiece == true && 
-                        boardArray[i + 3][j].this.tile.AIPiece == true){ //horizontally 4 in a row
-
-                        console.log(AIWin)
-
-
-                    }
-
-                    else if(boardArray[i][j].this.tile.AIPiece == true && 
-                        boardArray[i + 1][j + 1].this.tile.AIPiece == true && 
-                        boardArray[i + 2][j + 2].this.tile.AIPiece == true && 
-                        boardArray[i + 3][j + 3].this.tile.AIPiece == true){ //slanted up 4 in a row
-
-                        console.log(AIWin)
-
-                    }
-
-                    else if(j >= 4 && 
-                        boardArray[i][j].this.tile.AIPiece == true && 
-                        boardArray[i + 1][j - 1].this.tile.AIPiece == true && 
-                        boardArray[i + 2][j - 2].this.tile.AIPiece == true && 
-                        boardArray[i + 3][j - 3].this.tile.AIPiece == true){ //slanted down 4 in a row
-
-                        console.log(AIWin)
-
-                    }
-
-                    else {
-
-                        return;
-
-                    }
-
-                }
-
-            }
-
-        }
-
+        this.AIWin = "HAHAHAHAHAHAHAHAHAHAHAHAHA YOU LOST!";
 
         this.pieceCounter = 0;
 
-        this.rowNumber;
+        }
+     
+        boardSetup(){ //decleration of boardArray as 2D array
 
-        this.addPlayerPiece = function(rowNumber){ //adds a 'piece' to a coloumn at its bottom
+            for (var i = 0; i <= this.rows; i++){ 
 
-            for (var i = this.coloums; i >= 0; i--){
+                this.boardArray[i] = new Array(this.coloums);
+    
+                for (var j = 0; j <= this.coloums; j ++){
+    
+                    this.boardArray[i][j] = this.tile;
+    
+                }   
+    
+            }
 
-                if (boardArray[rowNumber][i].this.tile.playerPiece == false){
+        }
 
-                    boardArray[rowNumber][i].this.tile.playerPiece == true
+        checkPlayerWinstate(){ //checks if there's a valid win state for the player
 
-                }
+            for(var i = 0; i < rows - 3; i++){
 
-                else if(boardArray[rowNumber][i].this.tile.AIPiece == false){
+                for(var j = 0; j < coloums - 3; j++){
 
-                    boardArray[rowNumber][i].this.tile.playerPiece == true
+                    if(this.boardArray[i][j].PlayerPiece == true && 
+                        this.boardArray[i][j + 1].PlayerPiece == true && 
+                        this.boardArray[i][j + 2].PlayerPiece == true && 
+                        this.boardArray[i][j + 3].PlayerPiece == true){ //vertically 4 in a row
 
-                }
+                        console.log(this.playerWin)
 
-                if(this.pieceCounter < 4){ //Only checks win state if 4 pieces has been added to the board.
 
-                    this.pieceCounter ++
+                    }
 
-                }
+                    else if(this.boardArray[i][j].PlayerPiece == true && 
+                        this.boardArray[i + 1][j].PlayerPiece == true && 
+                        this.boardArray[i + 2][j].PlayerPiece == true && 
+                        this.boardArray[i + 3][j].PlayerPiece == true){ //horizontally 4 in a row
 
-                else {
+                        console.log(this.playerWin)
 
-                    this.checkWinstate();
+
+                    }
+
+                    else if(this.boardArray[i][j].PlayerPiece == true && 
+                        this.boardArray[i + 1][j + 1].PlayerPiece == true && 
+                        this.boardArray[i + 2][j + 2].PlayerPiece == true && 
+                        this.boardArray[i + 3][j + 3].PlayerPiece == true){ //slanted up 4 in a row
+
+                        console.log(this.playerWin)
+
+
+                    }
+
+                    else if(j >= 4 && 
+                        this.boardArray[i][j].PlayerPiece == true && 
+                        this.boardArray[i + 1][j - 1].PlayerPiece == true && 
+                        this.boardArray[i + 2][j - 2].PlayerPiece == true && 
+                        this.boardArray[i + 3][j - 3].PlayerPiece == true){ //slanted down 4 in a row
+
+                        console.log(this.playerWin)
+
+                    }
+
+                    else {
+
+                        return;
+
+                    }
 
                 }
 
@@ -185,31 +92,55 @@ class board {
 
         }
 
-        this.addAIPiece = function(rowNumber){ //adds a 'piece' to a coloumn at its bottom
+        checkAIWinstate(){ //checks if there's a valid win state for the AI
 
-            for (var i = this.coloums; i >= 0; i--){
+            for(var i = 0; i < rows - 3; i++){
 
-                if (boardArray[rowNumber][i].this.tile.AIPiece == false){
+                for(var j = 0; j < coloums - 3; j++){
 
-                    boardArray[rowNumber][i].this.tile.AIPiece == true
+                    if(this.boardArray[i][j].AIPiece == true && 
+                        this.boardArray[i][j + 1].AIPiece == true && 
+                        this.boardArray[i][j + 2].AIPiece == true && 
+                        this.boardArray[i][j + 3].AIPiece == true){ //vertically 4 in a row
 
-                }
+                        console.log(this.AIWin)
 
-                else if(boardArray[rowNumber][i].this.tile.playerPiece == false){
+                    }
 
-                    boardArray[rowNumber][i].this.tile.AIPiece == true
+                    else if(this.boardArray[i][j].AIPiece == true && 
+                        this.boardArray[i + 1][j].AIPiece == true && 
+                        this.boardArray[i + 2][j].AIPiece == true && 
+                        this.boardArray[i + 3][j].AIPiece == true){ //horizontally 4 in a row
 
-                }
+                        console.log(this.AIWin)
 
-                if(this.pieceCounter < 4){ //Only checks win state if 4 pieces has been added to the board.
 
-                    this.pieceCounter ++
+                    }
 
-                }
+                    else if(this.boardArray[i][j].AIPiece == true && 
+                        this.boardArray[i + 1][j + 1].AIPiece == true && 
+                        this.boardArray[i + 2][j + 2].AIPiece == true && 
+                        this.boardArray[i + 3][j + 3].AIPiece == true){ //slanted up 4 in a row
 
-                else {
+                        console.log(this.AIWin)
 
-                    this.checkWinstate();
+                    }
+
+                    else if(j >= 4 && 
+                        this.boardArray[i][j].AIPiece == true && 
+                        this.boardArray[i + 1][j - 1].AIPiece == true && 
+                        this.boardArray[i + 2][j - 2].AIPiece == true && 
+                        this.boardArray[i + 3][j - 3].AIPiece == true){ //slanted down 4 in a row
+
+                        console.log(this.AIWin)
+
+                    }
+
+                    else {
+
+                        return;
+
+                    }
 
                 }
 
@@ -217,23 +148,63 @@ class board {
 
         }
 
-        this.drawBoard = function(){
+        addPlayerPiece(rowNumber){ //adds a 'piece' to a coloumn at its bottom
+
+            for (var i = this.coloums; i >= 0; i--){
+
+                if (this.boardArray[rowNumber][i].playerPiece == false){
+
+                    this.boardArray[rowNumber][i].playerPiece == true
+
+                }
+
+                else if(this.boardArray[rowNumber][i].AIPiece == false){
+
+                    this.boardArray[rowNumber][i].playerPiece == true
+
+                }
+
+            }
+
+        }
+
+        addAIPiece(rowNumber){ //adds a 'piece' to a coloumn at its bottom
+
+            for (var i = this.coloums; i >= 0; i--){
+
+                if (this.boardArray[rowNumber][i].AIPiece == false){
+
+                    this.boardArray[rowNumber][i].AIPiece == true
+
+                }
+
+                else if(this.boardArray[rowNumber][i].PlayerPiece == false){
+
+                    this.boardArray[rowNumber][i].AIPiece == true
+
+                }
+
+            }
+
+        }
+
+        drawBoard(){
 
             let temp =   "";
 
-            for(var i = 0; i < rows; i++){
+            for(var i = 0; i < this.rows; i++){
 
                 temp =   "";
 
-                for(var j = 0; j < coloums; j++){
+                for(var j = 0; j < this.coloums; j++){
 
-                    if(boardArray[i][j].this.tile.playerPiece == true){
+                    if(this.boardArray[i][j].playerPiece == true){
 
                         temp += " P ";
 
                     }
 
-                    if(boardArray[i][j].this.tile.AIPiece == true){
+                    if(this.boardArray[i][j].AIPiece == true){
 
                         temp += " A ";
 
@@ -247,12 +218,10 @@ class board {
 
                 }
 
-                console.log(temp);
+                console.log(temp);  
 
             }
 
         }
 
     }
-
-}
