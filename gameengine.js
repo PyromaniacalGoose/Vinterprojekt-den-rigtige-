@@ -8,17 +8,9 @@ class board {
 
         this.boardArray = [];
 
-        this.tile = {playerPiece: false, AIPiece: false};
-
-        this.playerWin = "You won..... finally";
-
-        this.AIWin = "HAHAHAHAHAHAHAHAHAHAHAHAHA YOU LOST!";
-
-        this.pieceCounter = 0;
-
         }
-     
-        boardSetup(){ //decleration of boardArray as 2D array
+
+        setup(){ //decleration of boardArray as 2D array
 
             for (var i = 0; i <= this.rows; i++){ 
 
@@ -26,120 +18,76 @@ class board {
     
                 for (var j = 0; j <= this.coloums; j ++){
     
-                    this.boardArray[i][j] = this.tile;
-    
+                    this.boardArray[i][j] = [false, false]; //This declares the player piece as index 0 and the AI piece as index 1
+
                 }   
     
             }
 
         }
 
-        checkPlayerWinstate(){ //checks if there's a valid win state for the player
+        checkWinState(){ //checks if there's a valid win state for the AI
 
-            for(var i = 0; i < rows - 3; i++){
+            for(var i = 0; i <= this.rows; i++){
 
-                for(var j = 0; j < coloums - 3; j++){
+                for(var j = 0; j <= this.coloums; j++){
 
-                    if(this.boardArray[i][j].PlayerPiece == true && 
-                        this.boardArray[i][j + 1].PlayerPiece == true && 
-                        this.boardArray[i][j + 2].PlayerPiece == true && 
-                        this.boardArray[i][j + 3].PlayerPiece == true){ //vertically 4 in a row
+                    for(var x = 0; x <= 1; x ++){ //Checks both AI pieces and player pieces
 
-                        console.log(this.playerWin)
+                        if(j >= this.coloums - 3 && 
+                            this.boardArray[i][j][x] == true && 
+                            this.boardArray[i][j + 1][x] == true && 
+                            this.boardArray[i][j + 2][x] == true && 
+                            this.boardArray[i][j + 3][x] == true){ //vertically 4 in a row
 
+                            textSize(50);
+    
+                            text("GAME OVER", 100, 100);
+    
+                        }
+    
+                        else if(i > this.rows - 3 &&
+                            this.boardArray[i][j][x] == true && 
+                            this.boardArray[i + 1][j][x] == true && 
+                            this.boardArray[i + 2][j][x] == true && 
+                            this.boardArray[i + 3][j][x] == true){ //horizontally 4 in a row
 
-                    }
+                            textSize(50);
+    
+                            text("GAME OVER", 200, 200);
+    
+                        }
+    
+                        else if(i > this.rows - 3 && j > this.coloums - 3 && 
+                            this.boardArray[i][j][x] == true && 
+                            this.boardArray[i + 1][j + 1][x] == true && 
+                            this.boardArray[i + 2][j + 2][x] == true && 
+                            this.boardArray[i + 3][j + 3][x] == true){ //slanted up 4 in a row
 
-                    else if(this.boardArray[i][j].PlayerPiece == true && 
-                        this.boardArray[i + 1][j].PlayerPiece == true && 
-                        this.boardArray[i + 2][j].PlayerPiece == true && 
-                        this.boardArray[i + 3][j].PlayerPiece == true){ //horizontally 4 in a row
+                            textSize(50);
+    
+                            text("GAME OVER", 200, 200);
+    
+                        }
+    
+                        else if(j >= 3 && i >= this.rows - 3 && 
+                            this.boardArray[i][j][x] == true && 
+                            this.boardArray[i + 1][j - 1][x] == true && 
+                            this.boardArray[i + 2][j - 2][x] == true && 
+                            this.boardArray[i + 3][j - 3][x] == true){ //slanted down 4 in a row
 
-                        console.log(this.playerWin)
-
-
-                    }
-
-                    else if(this.boardArray[i][j].PlayerPiece == true && 
-                        this.boardArray[i + 1][j + 1].PlayerPiece == true && 
-                        this.boardArray[i + 2][j + 2].PlayerPiece == true && 
-                        this.boardArray[i + 3][j + 3].PlayerPiece == true){ //slanted up 4 in a row
-
-                        console.log(this.playerWin)
-
-
-                    }
-
-                    else if(j >= 4 && 
-                        this.boardArray[i][j].PlayerPiece == true && 
-                        this.boardArray[i + 1][j - 1].PlayerPiece == true && 
-                        this.boardArray[i + 2][j - 2].PlayerPiece == true && 
-                        this.boardArray[i + 3][j - 3].PlayerPiece == true){ //slanted down 4 in a row
-
-                        console.log(this.playerWin)
-
-                    }
-
-                    else {
-
-                        return;
-
-                    }
-
-                }
-
-            }
-
-        }
-
-        checkAIWinstate(){ //checks if there's a valid win state for the AI
-
-            for(var i = 0; i < rows - 3; i++){
-
-                for(var j = 0; j < coloums - 3; j++){
-
-                    if(this.boardArray[i][j].AIPiece == true && 
-                        this.boardArray[i][j + 1].AIPiece == true && 
-                        this.boardArray[i][j + 2].AIPiece == true && 
-                        this.boardArray[i][j + 3].AIPiece == true){ //vertically 4 in a row
-
-                        console.log(this.AIWin)
-
-                    }
-
-                    else if(this.boardArray[i][j].AIPiece == true && 
-                        this.boardArray[i + 1][j].AIPiece == true && 
-                        this.boardArray[i + 2][j].AIPiece == true && 
-                        this.boardArray[i + 3][j].AIPiece == true){ //horizontally 4 in a row
-
-                        console.log(this.AIWin)
+                            textSize(50);
+    
+                            text("GAME OVER",200, 200);
+    
+                        }
+    
+                        else {
 
 
-                    }
-
-                    else if(this.boardArray[i][j].AIPiece == true && 
-                        this.boardArray[i + 1][j + 1].AIPiece == true && 
-                        this.boardArray[i + 2][j + 2].AIPiece == true && 
-                        this.boardArray[i + 3][j + 3].AIPiece == true){ //slanted up 4 in a row
-
-                        console.log(this.AIWin)
-
-                    }
-
-                    else if(j >= 4 && 
-                        this.boardArray[i][j].AIPiece == true && 
-                        this.boardArray[i + 1][j - 1].AIPiece == true && 
-                        this.boardArray[i + 2][j - 2].AIPiece == true && 
-                        this.boardArray[i + 3][j - 3].AIPiece == true){ //slanted down 4 in a row
-
-                        console.log(this.AIWin)
-
-                    }
-
-                    else {
-
-                        return;
-
+    
+                        }
+    
                     }
 
                 }
@@ -148,39 +96,23 @@ class board {
 
         }
 
-        addPlayerPiece(rowNumber){ //adds a 'piece' to a coloumn at its bottom
+        addPiece(rowNumber, piece){ //adds an 'piece' to a coloumn at its bottom
 
             for (var i = this.coloums; i >= 0; i--){
 
-                if (this.boardArray[rowNumber][i].playerPiece == false){
+                if (this.boardArray[rowNumber][i][piece] == false){
 
-                    this.boardArray[rowNumber][i].playerPiece == true
+                    this.boardArray[rowNumber][i][piece] = true;
 
-                }
-
-                else if(this.boardArray[rowNumber][i].AIPiece == false){
-
-                    this.boardArray[rowNumber][i].playerPiece == true
+                    break;  
 
                 }
 
-            }
+                else if(this.boardArray[rowNumber][i][piece] == false){
 
-        }
+                    this.boardArray[rowNumber][i][piece] = true;
 
-        addAIPiece(rowNumber){ //adds a 'piece' to a coloumn at its bottom
-
-            for (var i = this.coloums; i >= 0; i--){
-
-                if (this.boardArray[rowNumber][i].AIPiece == false){
-
-                    this.boardArray[rowNumber][i].AIPiece == true
-
-                }
-
-                else if(this.boardArray[rowNumber][i].PlayerPiece == false){
-
-                    this.boardArray[rowNumber][i].AIPiece == true
+                    break;
 
                 }
 
@@ -190,21 +122,23 @@ class board {
 
         drawBoard(){
 
+            background(220);
+
             let temp =   "";
 
-            for(var i = 0; i < this.rows; i++){
+            for(var i = 0; i <= this.coloums; i++){
 
                 temp =   "";
 
-                for(var j = 0; j < this.coloums; j++){
+                for(var j = 0; j <= this.rows; j++){
 
-                    if(this.boardArray[i][j].playerPiece == true){
+                    if(this.boardArray[j][i][0] == true){
 
                         temp += " P ";
 
                     }
 
-                    if(this.boardArray[i][j].AIPiece == true){
+                    else if(this.boardArray[j][i][1] == true){
 
                         temp += " A ";
 
@@ -212,13 +146,13 @@ class board {
 
                     else {
 
-                        temp += " X ";
+                        temp += " O ";
     
                     }
 
                 }
 
-                console.log(temp);  
+                text(temp, 150, 150 + ( 15 * i)); 
 
             }
 
