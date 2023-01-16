@@ -1,7 +1,8 @@
-
 class Ai {
-    
-    update(){
+constructor(){
+
+}
+   update(){  
 
     }
 
@@ -16,18 +17,17 @@ class Ai {
 
 
 
-     getAvailableMoves(getNodeData){
-        let avaliableMoves = new array;
-       
-        let boardData = new array = this.getNodeData(); //gets the board data from the board
-        if (boardData[0][0]) { //checks if the player is in an immediate-close-win-state
-            avaliableMoves.add(boardData[0][0]); 
-        return(avaliableMoves); //returns only that move if AI is about to lose
-        } else{
-
+     getAvailableMoves(){
+        let avaliableMoves = new Array();
+      
+        for (let i = 0; i <= board.rows; i++) { //obs fix this to coloums when mikkel fixes his shit
+         let tempTopRow = board.boardArray[i][board.boardArray[i].length-1] //for easier syntax
+         if(tempTopRow[0] == false && tempTopRow[1] == false){ //checks if the top row of each coloum is empty, and therefore viable to play
+           
+            avaliableMoves.push(i); //if it is viable, the coloum is pushed into the avaliable moveset
+         }
         }
-
-
+        console.log(avaliableMoves);   
      }
 
 

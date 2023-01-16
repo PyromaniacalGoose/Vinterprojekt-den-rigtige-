@@ -8,7 +8,9 @@ function setup() {
 
   let coloums = prompt("Brættets kolonner:");
 
-  board = new board(rows, coloums); //Initializes input data
+   board = new Board(rows, coloums); //Initializes input data
+   ai = new Ai();
+
 
   board.setup();
 
@@ -40,4 +42,5 @@ function update() {
 
 function draw() {
 
+  
 }
