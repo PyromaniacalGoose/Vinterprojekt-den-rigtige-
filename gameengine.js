@@ -96,7 +96,7 @@ class Board {
 
         gameEnd(){
             
-            if(!dummyGame){ //if the game is not a dummy game, the game ends
+            if(!this.dummyGame){ //if the game is not a dummy game, the game ends
             textSize(50);
     
             text("GAME OVER",200, 200);
