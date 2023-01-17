@@ -1,6 +1,6 @@
 class Board {
 
-    constructor(rows, columns){
+    constructor(rows, columns, isDummyGame){
 
         this.columns = columns;
 
