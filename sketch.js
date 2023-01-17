@@ -6,9 +6,9 @@ function setup() {
 
   let rows = prompt("Brættets række:"); 
 
-  let coloums = prompt("Brættets kolonner:");
+  let columns = prompt("Brættets kolonner:");
 
-   board = new Board(rows, coloums); //Initializes input data
+  board = new Board(rows, columns); //Initializes input data
    ai = new Ai(5);
 
 
