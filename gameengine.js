@@ -6,7 +6,7 @@ class Board {
 
         this.rows = rows;
 
-        if(isDummyGame = undefined){ //checks if the game is a dummy game.
+        if(isDummyGame == undefined){ //checks if the game is a dummy game.
             this.dummyGame = false
         } else{
         this.dummyGame = isDummyGame;
