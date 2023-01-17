@@ -2,9 +2,9 @@ class Board {
 
     constructor(rows, columns, isDummyGame){
 
-        this.columns = columns;
+        this.columns = columns - 1;
 
-        this.rows = rows;
+        this.rows = rows - 1;
 
         if(isDummyGame == undefined){ //checks if the game is a dummy game.
             this.dummyGame = false
