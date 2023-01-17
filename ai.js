@@ -43,7 +43,7 @@ constructor(branchSearchDepth){
 
      evaluateBranch(node, searchhDepth){
       dummyBoard.boardArray = board.boardArray //replicates the state of the current board to the dummyBoard
-   
+      
       
     }
 

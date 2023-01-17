@@ -46,9 +46,7 @@ class Board {
                             this.boardArray[i][j + 2][x] == true && 
                             this.boardArray[i][j + 3][x] == true){ //vertically 4 in a row
 
-                            textSize(50);
-    
-                            text("GAME OVER", 100, 100);
+                            this.gameEnd();
     
                         }
     
@@ -131,7 +129,7 @@ class Board {
         }
 
         drawBoard(){
-
+            if(!this.dummyGame){
             background(220);
 
             let temp =   "";
@@ -166,6 +164,6 @@ class Board {
 
             }
 
-        }
+        }}
 
     }
