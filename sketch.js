@@ -36,11 +36,13 @@ function update() {
 
   board.drawBoard();
 
-  board.checkWinState();
+  board.checkWinState(0);
+
+  board.checkWinState(1);
 
 }
 
 function draw() {
 
-  
+
 }

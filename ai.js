@@ -41,9 +41,13 @@ constructor(branchSearchDepth){
      }
    
 
-     evaluateBranch(node, searchhDepth){
+     evaluateBranch(node){
       dummyBoard.boardArray = board.boardArray //replicates the state of the current board to the dummyBoard
-      
+      dummyBoard.boardArray[node].forEach(element => {
+         for (let i = 0; i <= this.branchSearchDepth; i++) {
+            
+         }
+      });
       
     }
 

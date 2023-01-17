@@ -14,6 +14,10 @@ class Board {
 
         this.boardArray = [];
 
+        this.playerWon = false;
+
+        this.AIWon = false;
+
         }
 
         setup(){ //decleration of boardArray as 2D array
@@ -32,62 +36,76 @@ class Board {
 
         }
 
-        checkWinState(){ //checks if there's a valid win state for the AI
+        checkWinState(team){ //checks if there's a valid win state for the AI
+
+            if(team == 0){
+
+                this.playerWon = true;
+
+            }
+
+            else if(team == 1){
+
+                this.AIWon = true;
+
+            }
 
             for(let i = 0; i <= this.columns; i++){
 
                 for(let j = 0; j <= this.rows; j++){
 
-                    for(let x = 0; x <= 1; x ++){ //Checks both AI pieces and player pieces
+                    if(j <= this.rows - 3 && 
+                        this.boardArray[i][j][team] == true && 
+                        this.boardArray[i][j + 1][team] == true && 
+                        this.boardArray[i][j + 2][team] == true && 
+                        this.boardArray[i][j + 3][team] == true){ //vertically 4 in a row
 
-                        if(j < this.rows - 3 && 
-                            this.boardArray[i][j][x] == true && 
-                            this.boardArray[i][j + 1][x] == true && 
-                            this.boardArray[i][j + 2][x] == true && 
-                            this.boardArray[i][j + 3][x] == true){ //vertically 4 in a row
+                        this.gameEnd();
 
-                            this.gameEnd();
-    
-                        }
-    
-                        else if(i < this.columns - 3 &&
-                            this.boardArray[i][j][x] == true && 
-                            this.boardArray[i + 1][j][x] == true && 
-                            this.boardArray[i + 2][j][x] == true && 
-                            this.boardArray[i + 3][j][x] == true){ //horizontally 4 in a row
-
-                            this.gameEnd();
-    
-                        }
-    
-                        else if(i < this.columns - 3 && j < this.rows - 3 && 
-                            this.boardArray[i][j][x] == true && 
-                            this.boardArray[i + 1][j + 1][x] == true && 
-                            this.boardArray[i + 2][j + 2][x] == true && 
-                            this.boardArray[i + 3][j + 3][x] == true){ //slanted up 4 in a row
-
-                            this.gameEnd();
-    
-                        }
-    
-                        else if(j < 3 && i < this.columns - 3 && 
-                            this.boardArray[i][j][x] == true && 
-                            this.boardArray[i + 1][j - 1][x] == true && 
-                            this.boardArray[i + 2][j - 2][x] == true && 
-                            this.boardArray[i + 3][j - 3][x] == true){ //slanted down 4 in a row
-
-                            this.gameEnd();
-    
-                        }
-    
-                        else {
-
-
-    
-                        }
+                        return true;
     
                     }
+    
+                    else if(i <= this.columns - 3 &&
+                        this.boardArray[i][j][team] == true && 
+                        this.boardArray[i + 1][j][team] == true && 
+                        this.boardArray[i + 2][j][team] == true && 
+                        this.boardArray[i + 3][j][team] == true){ //horizontally 4 in a row
 
+                        this.gameEnd();
+
+                        return true;
+    
+                    }
+    
+                    else if(i <= this.columns - 3 && j <= this.rows - 3 && 
+                        this.boardArray[i][j][team] == true && 
+                        this.boardArray[i + 1][j + 1][team] == true && 
+                        this.boardArray[i + 2][j + 2][team] == true && 
+                        this.boardArray[i + 3][j + 3][team] == true){ //slanted up 4 in a row
+
+                        this.gameEnd();
+
+                        return true;
+    
+                    }
+    
+                    else if(j <= 3 && i < this.columns - 3 && 
+                        this.boardArray[i][j][team] == true && 
+                        this.boardArray[i + 1][j - 1][team] == true && 
+                        this.boardArray[i + 2][j - 2][team] == true && 
+                        this.boardArray[i + 3][j - 3][team] == true){ //slanted down 4 in a row
+
+                        this.gameEnd();
+
+                        return true;
+    
+                    }
+    
+                    else {
+
+                    }
+    
                 }
 
             }
@@ -98,29 +116,33 @@ class Board {
             
             if(!this.dummyGame){ //if the game is not a dummy game, the game ends
             textSize(50);
+
+            if(this.playerWon == true){
+
+                text("PLAYER WON",150, 150);
+
+            }
+
+            else if(this.AIWon == true){
+
+                text("AI WON",150, 150);
+
+            }
     
-            text("GAME OVER",200, 200);
             }
         }
 
 
-        addPiece(rowNumber, piece){ //adds an 'piece' to a coloumn at its bottom
+        addPiece(columnNumber, piece){ //adds an 'piece' to a coloumn at its bottom
 
             for (var i = this.rows; i >= 0; i--){
 
-                if (this.boardArray[rowNumber][i][piece] == false){
+                if (this.boardArray[columnNumber][i][0] == false && 
+                    this.boardArray[columnNumber][i][1] == false){
 
-                    this.boardArray[rowNumber][i][piece] = true;
+                    this.boardArray[columnNumber][i][piece] = true;
 
                     break;  
-
-                }
-
-                else if(this.boardArray[rowNumber][i][piece] == false){
-
-                    this.boardArray[rowNumber][i][piece] = true;
-
-                    break;
 
                 }
 
