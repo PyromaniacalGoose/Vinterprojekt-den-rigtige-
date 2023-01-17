@@ -1,10 +1,10 @@
 class board {
 
-    constructor(coloums, rows){
+    constructor(rows, columns){
+
+        this.columns = columns;
 
         this.rows = rows;
-
-        this.coloums = coloums;
 
         this.boardArray = [];
 
@@ -12,11 +12,11 @@ class board {
 
         setup(){ //decleration of boardArray as 2D array
 
-            for (var i = 0; i <= this.rows; i++){ 
+            for (let i = 0; i <= this.columns; i++){ 
 
-                this.boardArray[i] = new Array(this.coloums);
+                this.boardArray[i] = new Array(this.rows);
     
-                for (var j = 0; j <= this.coloums; j ++){
+                for (let j = 0; j <= this.rows; j ++){
     
                     this.boardArray[i][j] = [false, false]; //This declares the player piece as index 0 and the AI piece as index 1
 
@@ -28,13 +28,13 @@ class board {
 
         checkWinState(){ //checks if there's a valid win state for the AI
 
-            for(var i = 0; i <= this.rows; i++){
+            for(let i = 0; i <= this.columns; i++){
 
-                for(var j = 0; j <= this.coloums; j++){
+                for(let j = 0; j <= this.rows; j++){
 
-                    for(var x = 0; x <= 1; x ++){ //Checks both AI pieces and player pieces
+                    for(let x = 0; x <= 1; x ++){ //Checks both AI pieces and player pieces
 
-                        if(j >= this.coloums - 3 && 
+                        if(j < this.rows - 3 && 
                             this.boardArray[i][j][x] == true && 
                             this.boardArray[i][j + 1][x] == true && 
                             this.boardArray[i][j + 2][x] == true && 
@@ -46,7 +46,7 @@ class board {
     
                         }
     
-                        else if(i > this.rows - 3 &&
+                        else if(i < this.columns - 3 &&
                             this.boardArray[i][j][x] == true && 
                             this.boardArray[i + 1][j][x] == true && 
                             this.boardArray[i + 2][j][x] == true && 
@@ -58,7 +58,7 @@ class board {
     
                         }
     
-                        else if(i > this.rows - 3 && j > this.coloums - 3 && 
+                        else if(i < this.columns - 3 && j < this.rows - 3 && 
                             this.boardArray[i][j][x] == true && 
                             this.boardArray[i + 1][j + 1][x] == true && 
                             this.boardArray[i + 2][j + 2][x] == true && 
@@ -70,7 +70,7 @@ class board {
     
                         }
     
-                        else if(j >= 3 && i >= this.rows - 3 && 
+                        else if(j < 3 && i < this.columns - 3 && 
                             this.boardArray[i][j][x] == true && 
                             this.boardArray[i + 1][j - 1][x] == true && 
                             this.boardArray[i + 2][j - 2][x] == true && 
@@ -98,7 +98,7 @@ class board {
 
         addPiece(rowNumber, piece){ //adds an 'piece' to a coloumn at its bottom
 
-            for (var i = this.coloums; i >= 0; i--){
+            for (var i = this.rows; i >= 0; i--){
 
                 if (this.boardArray[rowNumber][i][piece] == false){
 
@@ -124,35 +124,43 @@ class board {
 
             background(220);
 
-            let temp =   "";
+            let rød = [255, 0, 0];
 
-            for(var i = 0; i <= this.coloums; i++){
+            let grøn = [0, 255, 0];
 
-                temp =   "";
+            let sort = [0, 0, 0];
 
-                for(var j = 0; j <= this.rows; j++){
+            let temp = [];
+
+            for(let i = 0; i <= this.rows; i++){
+
+                temp = [];
+
+                for(let j = 0; j <= this.columns; j++){
 
                     if(this.boardArray[j][i][0] == true){
 
-                        temp += " P ";
+                        temp.push(grøn);  
 
                     }
 
                     else if(this.boardArray[j][i][1] == true){
 
-                        temp += " A ";
+                        temp.push(rød);
 
                     }
 
                     else {
 
-                        temp += " O ";
+                        temp.push(sort);
     
                     }
 
-                }
+                    fill(temp[j][0], temp[j][1], temp[j][2]);
 
-                text(temp, 150, 150 + ( 15 * i)); 
+                    text('o', 150 + textWidth(' o ') * j, 150 + textWidth(' o ') * i);
+
+                }
 
             }
 
