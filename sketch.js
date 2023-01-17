@@ -9,7 +9,7 @@ function setup() {
   let coloums = prompt("Brættets kolonner:");
 
    board = new Board(rows, coloums); //Initializes input data
-   ai = new Ai();
+   ai = new Ai(5);
 
 
   board.setup();

@@ -1,10 +1,16 @@
 class Board {
 
-    constructor(coloums, rows){
+    constructor(coloums, rows, isDummyGame){
 
         this.rows = rows;
 
         this.coloums = coloums;
+
+        if(isDummyGame = undefined){ //checks if the game is a dummy game.
+            this.dummyGame = false
+        } else{
+        this.dummyGame = isDummyGame;
+        }
 
         this.boardArray = [];
 
@@ -52,9 +58,7 @@ class Board {
                             this.boardArray[i + 2][j][x] == true && 
                             this.boardArray[i + 3][j][x] == true){ //horizontally 4 in a row
 
-                            textSize(50);
-    
-                            text("GAME OVER", 200, 200);
+                            this.gameEnd();
     
                         }
     
@@ -64,9 +68,7 @@ class Board {
                             this.boardArray[i + 2][j + 2][x] == true && 
                             this.boardArray[i + 3][j + 3][x] == true){ //slanted up 4 in a row
 
-                            textSize(50);
-    
-                            text("GAME OVER", 200, 200);
+                            this.gameEnd();
     
                         }
     
@@ -76,9 +78,7 @@ class Board {
                             this.boardArray[i + 2][j - 2][x] == true && 
                             this.boardArray[i + 3][j - 3][x] == true){ //slanted down 4 in a row
 
-                            textSize(50);
-    
-                            text("GAME OVER",200, 200);
+                            this.gameEnd();
     
                         }
     
@@ -95,6 +95,16 @@ class Board {
             }
 
         }
+
+        gameEnd(){
+            
+            if(!dummyGame){ //if the game is not a dummy game, the game ends
+            textSize(50);
+    
+            text("GAME OVER",200, 200);
+            }
+        }
+
 
         addPiece(rowNumber, piece){ //adds an 'piece' to a coloumn at its bottom
 
