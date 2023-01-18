@@ -2,7 +2,7 @@ function setup() {
 
   createCanvas(400, 400);
 
-  background(220);
+  background(50, 230, 255);
 
   let rows = prompt("Brættets række:"); 
 

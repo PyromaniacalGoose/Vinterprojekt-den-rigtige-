@@ -115,17 +115,18 @@ class Board {
         gameEnd(){
             
             if(!this.dummyGame){ //if the game is not a dummy game, the game ends
+            
             textSize(50);
 
             if(this.playerWon == true){
 
-                text("PLAYER WON",150, 150);
+                text("PLAYER WON",20, 200);
 
             }
 
             else if(this.AIWon == true){
 
-                text("AI WON",150, 150);
+                text("AI WON",20, 200);
 
             }
     
@@ -152,11 +153,12 @@ class Board {
 
         drawBoard(){
             if(!this.dummyGame){
-            background(220);
+
+            background(0, 230, 255);
 
             let rød = [255, 0, 0];
 
-            let grøn = [0, 255, 0];
+            let grøn = [80, 255, 70];
 
             let sort = [0, 0, 0];
 
@@ -188,7 +190,11 @@ class Board {
 
                     fill(temp[j][0], temp[j][1], temp[j][2]);
 
-                    text('o', 150 + textWidth(' o ') * j, 150 + textWidth(' o ') * i);
+                    let startPosX = width / 2 - (textWidth(' o ') * this.columns) / 2;
+
+                    let startPosY = height / 2 - (textWidth(' o ') * this.rows) / 2;
+
+                    text('o', startPosX + textWidth(' o ') * j, startPosY + textWidth(' o ') * i);
 
                 }
 
