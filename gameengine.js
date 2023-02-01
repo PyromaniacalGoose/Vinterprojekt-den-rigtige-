@@ -159,11 +159,11 @@ class Board {
 
         if (!this.dummyGame) {
 
-            background(0, 230, 255); //draws new backround
+            background(169, 205, 204); //draws new backround
 
             let red = [255, 0, 0]; //rgb values for colors
 
-            let green = [80, 255, 70];
+            let green = [0, 155, 15];
 
             let black = [0, 0, 0];
 
