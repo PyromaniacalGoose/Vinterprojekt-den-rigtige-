@@ -33,14 +33,21 @@ class Board {
             for (let j = 0; j <= this.rows; j++) {
 
                 this.boardArray[i][j] = [false, false]; //This declares the player piece as index 0 and the AI piece as index 1
-
             }
 
         }
 
     }
 
-    checkWinState(team) { //checks if there's a valid win state for the AI
+    /**
+     * hjdhasjkdh
+     * @param {Number} team 
+     * @returns If won
+     */
+
+    checkTeam(team){
+
+        console.log(team);
 
         if (team == 0) {
 
@@ -54,6 +61,10 @@ class Board {
 
         }
 
+    }
+
+    checkWinState(team) { //checks if there's a valid win state for the AI
+
         for (let i = 0; i <= this.columns; i++) {
 
             for (let j = 0; j <= this.rows; j++) {
@@ -63,6 +74,8 @@ class Board {
                     this.boardArray[i][j + 1][team] == true &&
                     this.boardArray[i][j + 2][team] == true &&
                     this.boardArray[i][j + 3][team] == true) { //vertically 4 in a row
+
+                    this.checkTeam(team);
 
                     this.gameEnd();
 
@@ -76,6 +89,8 @@ class Board {
                     this.boardArray[i + 2][j][team] == true &&
                     this.boardArray[i + 3][j][team] == true) { //horizontally 4 in a row
 
+                    this.checkTeam(team);
+
                     this.gameEnd();
 
                     return true;
@@ -88,17 +103,21 @@ class Board {
                     this.boardArray[i + 2][j + 2][team] == true &&
                     this.boardArray[i + 3][j + 3][team] == true) { //slanted up 4 in a row
 
+                    this.checkTeam(team);
+
                     this.gameEnd();
 
                     return true;
 
                 }
 
-                else if (j <= 3 && i < this.columns - 3 &&
+                else if (i < this.columns - 3 && j >= 3 &&
                     this.boardArray[i][j][team] == true &&
                     this.boardArray[i + 1][j - 1][team] == true &&
                     this.boardArray[i + 2][j - 2][team] == true &&
                     this.boardArray[i + 3][j - 3][team] == true) { //slanted down 4 in a row
+
+                    this.checkTeam(team);
 
                     this.gameEnd();
 
@@ -135,6 +154,7 @@ class Board {
             }
 
         }
+
     }
 
 
@@ -143,7 +163,7 @@ class Board {
         for (var i = this.rows; i >= 0; i--) {
 
             if (this.boardArray[columnNumber][i][0] == false &&
-                this.boardArray[columnNumber][i][1] == false) {
+                this.boardArray[columnNumber][i][1] == false){
 
                 this.boardArray[columnNumber][i][piece] = true;
 
@@ -206,13 +226,14 @@ class Board {
             }
 
         }
+        
     }
 
     createInputButtons() {
 
         for (let i = 0; i <= this.columns; i++) {
 
-            this.buttonArray[i] = createButton(i.toString());
+            this.buttonArray[i] = createButton((i + 1).toString());
 
             let combinedWidth = this.buttonArray[i].width * this.columns;  
 
@@ -224,7 +245,6 @@ class Board {
 
             })
         
-
         }
 
     }
