@@ -7,9 +7,15 @@ class Board {
         this.rows = rows - 1;
 
         if (isDummyGame == undefined) { //checks if the game is a dummy game.
+
             this.dummyGame = false
-        } else {
+
+        } 
+        
+        else {
+
             this.dummyGame = isDummyGame;
+
         }
 
         this.boardArray = [];
@@ -33,14 +39,19 @@ class Board {
             for (let j = 0; j <= this.rows; j++) {
 
                 this.boardArray[i][j] = [false, false]; //This declares the player piece as index 0 and the AI piece as index 1
-
             }
 
         }
 
     }
 
-    checkWinState(team) { //checks if there's a valid win state for the AI
+    /**
+     * hjdhasjkdh
+     * @param {Number} team 
+     * @returns If won
+     */
+
+    checkTeam(team){
 
         if (team == 0) {
 
@@ -54,6 +65,10 @@ class Board {
 
         }
 
+    }
+
+    checkWinState(team) { //checks if there's a valid win state for the AI
+
         for (let i = 0; i <= this.columns; i++) {
 
             for (let j = 0; j <= this.rows; j++) {
@@ -63,6 +78,8 @@ class Board {
                     this.boardArray[i][j + 1][team] == true &&
                     this.boardArray[i][j + 2][team] == true &&
                     this.boardArray[i][j + 3][team] == true) { //vertically 4 in a row
+
+                    this.checkTeam(team);
 
                     this.gameEnd();
 
@@ -76,6 +93,8 @@ class Board {
                     this.boardArray[i + 2][j][team] == true &&
                     this.boardArray[i + 3][j][team] == true) { //horizontally 4 in a row
 
+                    this.checkTeam(team);
+
                     this.gameEnd();
 
                     return true;
@@ -88,17 +107,21 @@ class Board {
                     this.boardArray[i + 2][j + 2][team] == true &&
                     this.boardArray[i + 3][j + 3][team] == true) { //slanted up 4 in a row
 
+                    this.checkTeam(team);
+
                     this.gameEnd();
 
                     return true;
 
                 }
 
-                else if (j <= 3 && i < this.columns - 3 &&
+                else if (i < this.columns - 3 && j >= 3 &&
                     this.boardArray[i][j][team] == true &&
                     this.boardArray[i + 1][j - 1][team] == true &&
                     this.boardArray[i + 2][j - 2][team] == true &&
                     this.boardArray[i + 3][j - 3][team] == true) { //slanted down 4 in a row
+
+                    this.checkTeam(team);
 
                     this.gameEnd();
 
@@ -124,17 +147,28 @@ class Board {
 
             if (this.playerWon == true) {
 
-                text("PLAYER WON", 20, 200);
+                let posPlayerX = width / 2 - textWidth('PLAYER WON') / 2
+
+                let posPlayerY = height / 2;
+
+                text("PLAYER WON", posPlayerX, posPlayerY);
 
             }
 
             else if (this.AIWon == true) {
 
-                text("AI WON", 20, 200);
+                let posAIX = width / 2 - textWidth('AI WON') / 2;
+
+                let posAIY = height / 2;
+
+                text("AI WON", posAIX, posAIY);
 
             }
 
+            textSize(12);
+
         }
+
     }
 
 
@@ -143,7 +177,7 @@ class Board {
         for (var i = this.rows; i >= 0; i--) {
 
             if (this.boardArray[columnNumber][i][0] == false &&
-                this.boardArray[columnNumber][i][1] == false) {
+                this.boardArray[columnNumber][i][1] == false){
 
                 this.boardArray[columnNumber][i][piece] = true;
 
@@ -199,24 +233,49 @@ class Board {
 
                     let startPosY = height / 2 - (textWidth(' o ') * this.rows) / 2;
 
-                    text('o', startPosX + textWidth(' o ') * j, startPosY + textWidth(' o ') * i); //draw
+                    let posX = startPosX + textWidth(' o ') * j;
+
+                    let posY = startPosY + textWidth(' o ') * i;
+
+                    let rowNumberPosY = startPosY + textWidth(' o ') * (this.rows + 2);
+
+                    text('o', posX, posY); //draws pieces
+
+                    fill(0, 0, 0); //Sets color to black
+
+                    textSize(9);
+
+                    text(j + 1, posX, rowNumberPosY); //draws row numbers
+
+                    textSize(12);
 
                 }   
 
             }
 
         }
+        
     }
 
     createInputButtons() {
 
         for (let i = 0; i <= this.columns; i++) {
 
-            this.buttonArray[i] = createButton(i.toString());
+            this.buttonArray[i] = createButton((i + 1).toString());
 
-            let combinedWidth = this.buttonArray[i].width * this.columns;  
+            if(i == 0){
 
-            this.buttonArray[i].position((combinedWidth/ this.columns) * i, 0);
+                this.buttonArray[i].position(0, 0); //start position
+
+            }
+
+            else {
+
+                let nextPos = this.buttonArray[i - 1].position().x + this.buttonArray[i - 1].width;
+
+                this.buttonArray[i].position(nextPos, 0); //sets next button at next position
+
+            }
 
             this.buttonArray[i].mousePressed(() => {
     
@@ -224,7 +283,6 @@ class Board {
 
             })
         
-
         }
 
     }

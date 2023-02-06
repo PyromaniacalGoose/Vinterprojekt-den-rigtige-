@@ -25,7 +25,7 @@ function update(input) {
   
   board.addPiece(input, 0);
 
-  board.addPiece(3, 1);
+  board.addPiece(Math.floor(Math.random() * board.rows),1);
 
   board.drawBoard();
 
