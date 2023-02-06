@@ -2,35 +2,27 @@ function setup() {
 
   createCanvas(400, 400);
 
-  background(220);
+  background(169, 205, 204);
 
-  let rows = prompt("Brættets række:"); 
+  let rows = prompt("Brættets rækker:"); 
 
   let columns = prompt("Brættets kolonner:");
 
   board = new Board(rows, columns); //Initializes input data
-   ai = new Ai(5);
-
+   
+  i = new Ai(5);
 
   board.setup();
 
   board.drawBoard();
 
-  inputRække = createInput('række input'); //Creates text box
-
-  inputRække.position(400,200);
-
-  button = createButton("Indsæt");
-
-  button.position(400, 220);
-
-  button.mousePressed(update); //Updates game when button is pressed
+  board.createInputButtons();
 
 }
 
-function update() {
-
-  board.addPiece(parseInt(inputRække.value()), 0);
+function update(input) {
+  
+  board.addPiece(input, 0);
 
   board.addPiece(3, 1);
 
