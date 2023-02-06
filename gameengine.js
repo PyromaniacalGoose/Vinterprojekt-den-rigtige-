@@ -7,9 +7,15 @@ class Board {
         this.rows = rows - 1;
 
         if (isDummyGame == undefined) { //checks if the game is a dummy game.
+
             this.dummyGame = false
-        } else {
+
+        } 
+        
+        else {
+
             this.dummyGame = isDummyGame;
+
         }
 
         this.boardArray = [];
@@ -141,15 +147,25 @@ class Board {
 
             if (this.playerWon == true) {
 
-                text("PLAYER WON", 20, 200);
+                let posPlayerX = width / 2 - textWidth('PLAYER WON') / 2
+
+                let posPlayerY = height / 2;
+
+                text("PLAYER WON", posPlayerX, posPlayerY);
 
             }
 
             else if (this.AIWon == true) {
 
-                text("AI WON", 20, 200);
+                let posAIX = width / 2 - textWidth('AI WON') / 2;
+
+                let posAIY = height / 2;
+
+                text("AI WON", posAIX, posAIY);
 
             }
+
+            textSize(12);
 
         }
 
@@ -217,7 +233,21 @@ class Board {
 
                     let startPosY = height / 2 - (textWidth(' o ') * this.rows) / 2;
 
-                    text('o', startPosX + textWidth(' o ') * j, startPosY + textWidth(' o ') * i); //draw
+                    let posX = startPosX + textWidth(' o ') * j;
+
+                    let posY = startPosY + textWidth(' o ') * i;
+
+                    let rowNumberPosY = startPosY + textWidth(' o ') * (this.rows + 2);
+
+                    text('o', posX, posY); //draws pieces
+
+                    fill(0, 0, 0); //Sets color to black
+
+                    textSize(9);
+
+                    text(j + 1, posX, rowNumberPosY); //draws row numbers
+
+                    textSize(12);
 
                 }   
 
@@ -235,13 +265,15 @@ class Board {
 
             if(i == 0){
 
-                this.buttonArray[i].position(0, 0);
+                this.buttonArray[i].position(0, 0); //start position
 
             }
 
             else {
 
-                this.buttonArray[i].position(this.buttonArray[i - 1].position().x + this.buttonArray[i - 1].width, 0);
+                let nextPos = this.buttonArray[i - 1].position().x + this.buttonArray[i - 1].width;
+
+                this.buttonArray[i].position(nextPos, 0); //sets next button at next position
 
             }
 
