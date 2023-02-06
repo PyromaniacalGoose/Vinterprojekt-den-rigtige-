@@ -47,8 +47,6 @@ class Board {
 
     checkTeam(team){
 
-        console.log(team);
-
         if (team == 0) {
 
             this.playerWon = true;
@@ -235,9 +233,17 @@ class Board {
 
             this.buttonArray[i] = createButton((i + 1).toString());
 
-            let combinedWidth = this.buttonArray[i].width * this.columns;  
+            if(i == 0){
 
-            this.buttonArray[i].position((combinedWidth/ this.columns) * i, 0);
+                this.buttonArray[i].position(0, 0);
+
+            }
+
+            else {
+
+                this.buttonArray[i].position(this.buttonArray[i - 1].position().x + this.buttonArray[i - 1].width, 0);
+
+            }
 
             this.buttonArray[i].mousePressed(() => {
     
