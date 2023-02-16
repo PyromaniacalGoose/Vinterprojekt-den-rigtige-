@@ -13,7 +13,7 @@ class Ai {
 
     for (let i = 0; i <= selectedBoard.columns; i++) {
       let tempTopRow =
-        selectedBoard.boardArray[i][selectedBoard.boardArray[i].length - 1]; //for easier syntax
+        selectedBoard.boardArray[i][0]; //for easier syntax
       if (tempTopRow[0] == false && tempTopRow[1] == false) {
         //checks if the top row of each coloum is empty, and therefore viable to play
 
@@ -37,9 +37,9 @@ class Ai {
     dummyBoard.addPiece(node, 1); //adds the ai piece at the node coloumn
     if (dummyBoard.checkWinState(1)) {
       //checks if the ai can win in 1 move
-      movesets.push([[node], 2]);
+      movesets.push([[node], 0, 2]);
     } else {
-      this.recursion();
+      this.recursionPlayer();
     }
   }
 
@@ -51,7 +51,7 @@ class Ai {
     for (let i = 0; i <= stepAvailableMoves; i++) {
       dummyBoard.addPiece(stepAvailableMoves[i], 0);
       if (dummyBoard.checkWinState(0)) {
-        tempMoveset[i] = [[node, i], -1];
+        tempMoveset[i] = [[node, i], -1]; 
       } else {
         this.recursionAI(tempMoveset[i]);
       }
