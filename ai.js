@@ -2,18 +2,12 @@ class Ai {
   constructor(branchSearchDepth) {
     this.branchSearchDepth = branchSearchDepth;
   }
-  update() {}
-
-  getBestMove() {
-    }
-  
 
   getAvailableMoves(selectedBoard) {
     let avaliableMoves = new Array();
 
     for (let i = 0; i <= selectedBoard.columns; i++) {
-      let tempTopRow =
-        selectedBoard.boardArray[i][0]; //for easier syntax
+      let tempTopRow = selectedBoard.boardArray[i][0]; //for easier syntax
       if (tempTopRow[0] == false && tempTopRow[1] == false) {
         //checks if the top row of each coloum is empty, and therefore viable to play
 
@@ -23,14 +17,74 @@ class Ai {
     return avaliableMoves;
   }
 
-  simulateTree() {
-    let branches = this.getAvailableMoves(board);
-    for (let i = 0; i < branches.length; i++) {
-      this.evaluateBranch(branches[i]); //evaluates each of the available moves
+
+
+
+
+  simulateTree() { 
+    let tree = [];
+    dummyBoard.setup();
+    dummyBoard.boardArray = structuredClone(board.boardArray) //replicates the state of the current board to the dummyBoard
+    let Aimoves = this.getAvailableMoves(dummyBoard);
+    if(Aimoves.length > 0) { //checks if the games a stalemate
+      this.branchOut(Aimoves, 1, tree)
+    }
+
+  }
+
+  branchOut(moveset, team, tree, thisBranch){
+    console.log('check2');
+    let value = team == 1 ? 1 : -1; //sets value based on what team is playing
+    let saveState = structuredClone(dummyBoard.boardArray); //saves current boardstate.
+
+    for (let i = 0; i < moveset.length; i++) {
+      dummyBoard.boardArray = structuredClone(saveState); //resets board for new try
+      dummyBoard.addPiece(moveset[i], team);
+
+      if(dummyBoard.checkWinState(team)){
+        console.log('check3'); //temp
+
+        if(!thisBranch == undefined) { //checks to see if prior branch should be added.
+        tree.push(new Branch([thisBranch, i], value))} 
+        else{ 
+          tree.push(new Branch([i], value))
+        }
+        console.log(tree);
+        this.moveUp(tree[tree.length - 1])
+        break;
+      }
     }
   }
 
-  evaluateBranch(node) {
+    
+  
+  moveUp(branch){
+    if(branch.branchPath.length == 1) { //if reached top of tree
+      //finish tree
+      this.playPiece()
+    } else {
+      let tempBranch = structuredClone(branch.branchPath);
+      tempBranch.pop();
+      this.setupBranch(tempBranch);
+    }
+  }
+
+  setupBranch(branchPath){ //function for setting the dummyboard to a specific branch
+    dummyBoard.boardArray = structuredClone(board.boardArray) //resets dummyboard
+    let team = 1; //always starts as ai
+    for (let i = 0; i < branchPath.length; i++) {
+      dummyBoard.addPiece(branchPath[i],team);
+      team = 1-team; //switches teams
+    }
+  }
+
+  playPiece(coloumn){
+    board.addPiece(coloumn, 1);
+    
+  }
+
+ /*
+  evaluateBranches(node) {
     let movesets = [];
 
     dummyBoard.boardArray = board.boardArray; //replicates the state of the current board to the dummyBoard
@@ -74,4 +128,5 @@ class Ai {
       dummyBoard.boardArray = boardState;
     } 
   }
+  */
 }

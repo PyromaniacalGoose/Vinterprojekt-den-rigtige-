@@ -130,7 +130,6 @@ class Board {
                 }
 
                 else {
-
                 }
 
             }
