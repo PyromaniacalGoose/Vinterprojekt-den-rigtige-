@@ -26,11 +26,11 @@ class Board {
 
         this.AIWon = false;
 
-        this.inputValue;
+        this.hasAIPlayed = Boolean = true; //if the variable is declared true, without first being declared a boolean, it doesn't work... for some reason
 
     }
 
-    setup() { //decleration of boardArray as 2D array
+    setup() { //decleration of boardArray as multidimensionel array
 
         for (let i = 0; i <= this.columns; i++) {
 
@@ -39,18 +39,13 @@ class Board {
             for (let j = 0; j <= this.rows; j++) {
 
                 this.boardArray[i][j] = [false, false]; //This declares the player piece as index 0 and the AI piece as index 1
+
             }
 
         }
 
     }
-
-    /**
-     * hjdhasjkdh
-     * @param {Number} team 
-     * @returns If won
-     */
-
+    
     checkTeam(team){
 
         if (team == 0) {
@@ -171,15 +166,14 @@ class Board {
 
     }
 
-
     addPiece(columnNumber, piece) { //adds an 'piece' to a coloumn at its bottom
 
         for (var i = this.rows; i >= 0; i--) {
 
-            if (this.boardArray[columnNumber][i][0] == false &&
+            if (this.boardArray[columnNumber][i][0] == false && //if there's not already a piece at at this position
                 this.boardArray[columnNumber][i][1] == false){
 
-                this.boardArray[columnNumber][i][piece] = true;
+                this.boardArray[columnNumber][i][piece] = true; //there's now a piece
 
                 break;
 
@@ -227,7 +221,7 @@ class Board {
 
                     }
 
-                    fill(temp[j][0], temp[j][1], temp[j][2]); //apply rgb valye for each piece
+                    fill(temp[j][0], temp[j][1], temp[j][2]); //apply rgb value for each piece
 
                     let startPosX = width / 2 - (textWidth(' o ') * this.columns) / 2;
 
@@ -237,7 +231,7 @@ class Board {
 
                     let posY = startPosY + textWidth(' o ') * i;
 
-                    let rowNumberPosY = startPosY + textWidth(' o ') * (this.rows + 2);
+                    let rowNumberPosY = startPosY + textWidth(' o ') * (this.rows + 2); 
 
                     text('o', posX, posY); //draws pieces
 
@@ -245,7 +239,7 @@ class Board {
 
                     textSize(9);
 
-                    text(j + 1, posX, rowNumberPosY); //draws row numbers
+                    text(j + 1, posX, rowNumberPosY); //draws row numbers under board
 
                     textSize(12);
 

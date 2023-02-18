@@ -22,19 +22,26 @@ function setup() {
 
 function update(input) {
   
-  board.addPiece(input, 0);
+  if(board.hasAIPlayed == true){ //hasAIPlayed starts off as true
 
-  board.addPiece(Math.floor(Math.random() * board.rows),1);
+    board.addPiece(input, 0);
+
+    board.hasAIPlayed = false;
+
+  }
+
+  if(board.hasAIPlayed == false){
+
+    board.addPiece(Math.floor(Math.random() * board.rows),1);
+
+    board.hasAIPlayed = true;
+
+  }
 
   board.drawBoard();
 
-  board.checkWinState(0);
+  board.checkWinState(0); //check winstate for player
 
-  board.checkWinState(1);
-
-}
-
-function draw() {
-
+  board.checkWinState(1); //check winstate for AI
 
 }
