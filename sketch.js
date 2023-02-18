@@ -9,8 +9,9 @@ function setup() {
   let columns = prompt("Brættets kolonner:");
 
   board = new Board(rows, columns); //Initializes input data
-   
-  i = new Ai(5);
+  dummyBoard = new Board(rows, columns, true); //creates a dummy board
+
+  ai = new Ai(5);
 
   board.setup();
 
