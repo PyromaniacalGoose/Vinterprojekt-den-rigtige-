@@ -2,7 +2,7 @@ class Board {
 
     constructor(rows, columns, isDummyGame) {
 
-        this.columns = columns - 1;
+        this.columns = columns - 1; //the columns and rows are subtracted by one, because '0' is counted as a number
 
         this.rows = rows - 1;
 
@@ -38,25 +38,9 @@ class Board {
 
             for (let j = 0; j <= this.rows; j++) {
 
-                this.boardArray[i][j] = [false, false]; //This declares the player piece as index 0 and the AI piece as index 1
+                this.boardArray[i][j] = [false, false]; //declares the player piece as index 0 and the AI piece as index 1
 
             }
-
-        }
-
-    }
-    
-    checkTeam(team){
-
-        if (team == 0) {
-
-            this.playerWon = true;
-
-        }
-
-        else if (team == 1) {
-
-            this.AIWon = true;
 
         }
 
@@ -125,9 +109,26 @@ class Board {
                 }
 
                 else {
+
                 }
 
             }
+
+        }
+
+    }
+
+    checkTeam(team){
+
+        if (team == 0) {
+
+            this.playerWon = true;
+
+        }
+
+        else if (team == 1) {
+
+            this.AIWon = true;
 
         }
 
@@ -164,15 +165,15 @@ class Board {
         }
 
     }
-
+  
     addPiece(columnNumber, piece) { //adds an 'piece' to a coloumn at its bottom
 
-        for (var i = this.rows; i >= 0; i--) {
+        for (let i = this.rows; i >= 0; i--) {
 
             if (this.boardArray[columnNumber][i][0] == false && //if there's not already a piece at at this position
                 this.boardArray[columnNumber][i][1] == false){
 
-                this.boardArray[columnNumber][i][piece] = true; //there's now a piece
+                this.boardArray[columnNumber][i][piece] = true; //adds piece
 
                 break;
 
@@ -190,7 +191,7 @@ class Board {
 
             let red = [255, 0, 0]; //rgb values for colors
 
-            let green = [0, 155, 15];
+            let green = [0, 155, 15]
 
             let black = [0, 0, 0];
 
