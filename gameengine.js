@@ -280,4 +280,107 @@ class Board {
 
     }
 
+    boardUpdate(){
+        this.drawBoard();
+        this.checkWinState(0);
+        this.checkWinState(1);
+    }
+
+    //code used by AI--------------
+
+    getBoardValue(){ //function for finding the value of a non-win bordstate
+        return this.findThreeInRows(1) + this.findThreeInRows(0);    
+        }  
+    
+
+    findThreeInRows(team){
+        let valueMultiplier = team == 1 ? 1 : -1;
+        let threeInRowCount = 0;
+
+        for (let i = 0; i <= this.columns; i++) {
+            for (let j = 0; j <= this.rows; j++) {
+            if (j <= this.rows - 3 ){
+                threeInRowCount += this.findVertical(i,j, team);
+            }
+            if  (i <= this.columns - 3){
+                threeInRowCount += this.findHorizontal(i,j, team);
+            }
+            if(i <= this.columns - 3 && j <= this.rows - 3) {
+                threeInRowCount += this.findSlantedUp(i,j, team);
+            }
+            if(i < this.columns - 3 && j >= 3){
+                threeInRowCount += this.findSlantedDown(i,j, team);
+             }
+            }
+
+        }
+        return threeInRowCount * valueMultiplier; //returns a positive or negative based on team
+        
+    }
+
+    findVertical(i,j,team){
+        let tempCounter = 0;
+        for (let k = 0; k <= 3; k++) {
+            if(this.boardArray[i][j+k][team] == true){
+                tempCounter++;
+            } else if(this.boardArray[i][j+k][1 - team] == true) {
+                return 0;
+            }
+        }
+
+        if(tempCounter >= 3){
+            return 1;
+        } else{
+            return 0;
+        }
+    }
+
+    findHorizontal(i, j, team){
+        let tempCounter = 0;
+        for (let k = 0; k <= 3; k++) {
+            if(this.boardArray[i+k][j][team] == true){
+                tempCounter++;
+            } else if(this.boardArray[i+k][j][1 - team] == true) {
+                return 0;
+            }
+        }
+        if(tempCounter >= 3){
+            return 1;
+        } else{
+            return 0;
+        }
+    }
+
+    findSlantedUp(i, j, team){
+        let tempCounter = 0;
+        for (let k = 0; k <= 3; k++) {
+            if(this.boardArray[i+k][j+k][team] == true){
+                tempCounter++;
+            } else if(this.boardArray[i+k][j+k][1 - team] == true) {
+                return 0;
+            }
+        }
+        if(tempCounter >= 3){
+            return 1;
+        } else{
+            return 0;
+        }
+    }
+    
+    findSlantedDown(i, j, team){
+        let tempCounter = 0;
+        for (let k = 0; k <= 3; k++) {
+            if(this.boardArray[i+k][j-k][team] == true){
+                tempCounter++;
+            } else if(this.boardArray[i+k][j-k][1 - team] == true) {
+                return 0;
+            }
+        }
+        if(tempCounter >= 3){
+            return 1;
+        } else{
+            return 0;
+        }
+    }
+
 }

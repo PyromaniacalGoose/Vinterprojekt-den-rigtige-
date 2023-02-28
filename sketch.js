@@ -8,10 +8,12 @@ function setup() {
 
   let columns = prompt("Brættets kolonner:");
 
+  let Seachdepth = prompt('Ai søge dybde (høj tal kan give performance problemer)')
+
   board = new Board(rows, columns); //Initializes input data
   dummyBoard = new Board(rows, columns, true); //creates a dummy board
 
-  ai = new Ai(5);
+  ai = new Ai(Seachdepth);
 
   board.setup();
 
@@ -30,19 +32,11 @@ function update(input) {
     board.hasAIPlayed = false;
 
   }
+  board.boardUpdate(); 
 
   if(board.hasAIPlayed == false){
-
-    board.addPiece(Math.floor(Math.random() * board.rows),1);
-
-    board.hasAIPlayed = true;
-
+    ai.simulateTree(); //the big function
+    
   }
-
-  board.drawBoard();
-
-  board.checkWinState(0); //check winstate for player
-
-  board.checkWinState(1); //check winstate for AI
 
 }
