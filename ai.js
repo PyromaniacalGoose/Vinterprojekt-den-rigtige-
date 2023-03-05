@@ -146,8 +146,8 @@ class Ai {
       //if you look an odd amount of moves ahead, then last move is AI, else it is player due to ai starting
       recordBranch =
         referenceBranch.branchPath.length % 2 == 0
-          ? this.min(this.findTrunk(referenceBranch, tree), tree)
-          : this.max(this.findTrunk(referenceBranch, tree), tree);
+          ? this.min(this.findTrunk(referenceBranch), tree)
+          : this.max(this.findTrunk(referenceBranch), tree);
   
   //  console.log(recordBranch);
    return recordBranch;
@@ -157,7 +157,6 @@ class Ai {
     //function for finding branches sharing 2nd 2 l ast joint
     let trunk = [referenceBranch];
     if(tree[0] != undefined && tree[0].branchPath.length > 1){
-      // console.log(tree[0], referenceBranch);
     while ( 
       tree[0].branchPath.length == referenceBranch.branchPath.length &&
       tree[0].branchPath[tree[0].branchPath.length - 2] ==
@@ -173,11 +172,10 @@ class Ai {
   } else{
     tree.shift();
   }
-    // console.log('trunk:' , trunk);
     return trunk;  
   }
 
-  min(trunk, tree) {
+  min(trunk) {
       let tempRec = trunk[0];
       if(trunk.length > 1){
       for (let i = 0; i < trunk.length -1; i++) {
@@ -187,12 +185,11 @@ class Ai {
       }
     } 
     if(tempRec.branchPath.length > 1){tempRec.branchPath.pop();}
-    // tempRec.branchPath.pop();
     return tempRec;
     
   }
 
-  max(trunk, tree) {
+  max(trunk) {
       let tempRec = trunk[0];
       if(trunk.length > 1){
       for (let i = 0; i < trunk.length -1; i++) {
@@ -202,7 +199,6 @@ class Ai {
       }
     } 
     if(tempRec.branchPath.length > 1){tempRec.branchPath.pop();}
-    // tempRec.branchPath.pop();
     return tempRec;
   }
 }
