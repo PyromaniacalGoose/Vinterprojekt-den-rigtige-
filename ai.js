@@ -28,7 +28,6 @@ class Ai {
       this.branchOut(Aimoves, 1, tree, []);
     }
     //once tree is made it sorts the tree using a min max algorithm
-    console.log(tree);
     this.minMaxAlgorithm(tree);  
   }
 
@@ -120,22 +119,21 @@ class Ai {
 
   minMaxAlgorithm(tree){
     let bestMove;
-    let hold = this.minMaxStep(tree,tree.shift());
-    while(tree.length > 1){
-    
-
-      if(hold.branchPath.length == tree[0].branchPath.length || hold.branchPath.length > tree[0].branchPath.length){
-        // console.log(hold.branchPath.length, tree);
-
-        hold = this.minMaxStep(tree, hold);
-      } else{
+    while(tree.length > board.columns+1){
+  
         tree.push(this.minMaxStep(tree,tree.shift()))
+      
       }
-        if(hold.branchPath.length > 0 && hold != undefined){
-          bestMove = hold;
-          }
-        }
-       
+      console.log(tree, board.columns+1); 
+        bestMove = tree.shift();
+      for (let i = 0; i < tree.length; i++) {
+        if(bestMove.branchValue < tree[i].branchValue){
+          bestMove = tree[i];
+          console.log(bestMove.branchValue, tree[i].branchValue)
+        }        
+      }
+      console.log(bestMove);
+
     this.playPiece(bestMove.branchPath[0]);
   }
   
@@ -143,35 +141,36 @@ class Ai {
 
   minMaxStep(tree, referenceBranch) {
     let recordBranch;
-      //if you look an odd amount of moves ahead, then last move is AI, else it is player due to ai starting
       recordBranch =
         referenceBranch.branchPath.length % 2 == 0
-          ? this.min(this.findTrunk(referenceBranch), tree)
-          : this.max(this.findTrunk(referenceBranch), tree);
+          ? this.min(this.findTrunk(referenceBranch, tree))
+          : this.max(this.findTrunk(referenceBranch, tree));
   
-  //  console.log(recordBranch);
    return recordBranch;
   }
+
+   compareArrays = (a, b) =>
+  a.length === b.length &&
+  a.every((element, index) => element === b[index]);
+
 
   findTrunk(referenceBranch, tree) {
     //function for finding branches sharing 2nd 2 l ast joint
     let trunk = [referenceBranch];
-    if(tree[0] != undefined && tree[0].branchPath.length > 1){
-    while ( 
-      tree[0].branchPath.length == referenceBranch.branchPath.length &&
-      tree[0].branchPath[tree[0].branchPath.length - 2] ==
-        referenceBranch.branchPath[referenceBranch.branchPath.length - 2]
-    ) {   
-      trunk.push(tree.shift());
-      if(tree[1] == undefined){break;} //code breaks
+    let refTempHold = referenceBranch.branchPath.pop()
+    for (let i = tree.length - 1; i >= 0; i--) { //iterates backwards to stop it messing up due to mutating array
+      let tempHold = tree[i].branchPath.pop();
+      if(this.compareArrays(referenceBranch.branchPath,tree[i].branchPath)) 
+         {
+          tree[i].branchPath.push(tempHold);
+        trunk.push(tree[i]);
+        tree.splice(i, 1);
+      } else{
+      tree[i].branchPath.push(tempHold);
+      }
     }
-  } else if(tree[0] != undefined && tree[0].branchPath.length == referenceBranch.branchPath.length && tree.length == board.columns){
-    while (tree.length > 0 && tree[0].branchPath.length == 1){
-      trunk.push(tree.shift());
-    }
-  } else{
-    tree.shift();
-  }
+    referenceBranch.branchPath.push(refTempHold);
+    // console.log(trunk);
     return trunk;  
   }
 
