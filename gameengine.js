@@ -167,7 +167,6 @@ class Board {
     }
   
     addPiece(columnNumber, piece) { //adds an 'piece' to a coloumn at its bottom
-
         for (let i = this.rows; i >= 0; i--) {
 
             if (this.boardArray[columnNumber][i][0] == false && //if there's not already a piece at at this position
