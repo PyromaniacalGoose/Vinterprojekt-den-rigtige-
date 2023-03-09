@@ -46,7 +46,7 @@ class Ai {
           //checks to see if prior branch should be added.
           tree.push(new Branch(concat(thisBranch, i), value));
         } else {
-          tree.push(new Branch([i], value));
+          tree.push(new Branch([moveset[i]], value));
         }
         if (tree[tree.length - 1].branchPath.length > 1) {
           this.moveUp(tree[tree.length - 1], tree);
@@ -67,7 +67,7 @@ class Ai {
             this.getAvailableMoves(dummyBoard),
             1 - team,
             tree,
-            concat(thisBranch, i)
+            concat(thisBranch, moveset[i])
           );
         } else {
           tree.push(new Branch(thisBranch, dummyBoard.getBoardValue()));
