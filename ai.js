@@ -124,7 +124,6 @@ class Ai {
         tree.push(this.minMaxStep(tree,tree.shift()))
       
       }
-      console.log(tree, board.columns+1); 
         bestMove = tree.shift();
       for (let i = 0; i < tree.length; i++) {
         if(bestMove.branchValue < tree[i].branchValue){
@@ -132,7 +131,6 @@ class Ai {
           console.log(bestMove.branchValue, tree[i].branchValue)
         }        
       }
-      console.log(bestMove);
 
     this.playPiece(bestMove.branchPath[0]);
   }
